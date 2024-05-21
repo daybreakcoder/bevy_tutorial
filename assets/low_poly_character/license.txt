@@ -1,0 +1,11 @@
+Model Information:
+* title:	low poly character
+* source:	https://sketchfab.com/3d-models/low-poly-character-ecf8048e06b94ca7905bc9838fdd87e2
+* author:	NatalieTeo (https://sketchfab.com/NatalieTeo)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "low poly character" (https://sketchfab.com/3d-models/low-poly-character-ecf8048e06b94ca7905bc9838fdd87e2) by NatalieTeo (https://sketchfab.com/NatalieTeo) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
