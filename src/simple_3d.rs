@@ -45,7 +45,7 @@ fn setup(
     // character
     let character: CharacterBundle = CharacterBundleBuilder::new()
         .name("character".to_string())
-        .speed(5.)
+        .speed(1.)
         .model("low_poly_character/girl.glb#Scene0".to_string())
         .animations(vec![
             "low_poly_character/girl.glb#Animation6".to_string(), // idle

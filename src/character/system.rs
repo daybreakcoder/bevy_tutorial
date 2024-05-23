@@ -1,7 +1,7 @@
 use super::component::{Character, Player};
 use bevy::prelude::*;
 use bevy::scene::SceneInstanceReady;
-use std::f32::consts::TAU;
+use std::f32::consts::PI;
 
 pub struct Animations(pub Vec<Handle<AnimationClip>>);
 
@@ -33,41 +33,26 @@ pub fn handle_input(
 
     for mut player in &mut animation_players {
         let mut direction = Vec3::ZERO;
+        let mut new_rotation = transform.rotation;
 
         if keyboard_input.pressed(KeyCode::KeyS) {
             direction += Vec3::new(0., 0., 1.);
-            let (new_translation, new_rotation) =
-                calculate_transform(char.speed, &time, direction, TAU);
-
-            transform.translation += new_translation;
-            transform.rotation = new_rotation;
+            new_rotation = Quat::from_rotation_y(0.);
         }
 
         if keyboard_input.pressed(KeyCode::KeyW) {
             direction += Vec3::new(0., 0., -1.);
-            let (new_translation, new_rotation) =
-                calculate_transform(char.speed, &time, direction, TAU / 2.);
-
-            transform.translation += new_translation;
-            transform.rotation = new_rotation;
+            new_rotation = Quat::from_rotation_y(PI);
         }
 
         if keyboard_input.pressed(KeyCode::KeyA) {
             direction += Vec3::new(-1., 0., 0.);
-            let (new_translation, new_rotation) =
-                calculate_transform(char.speed, &time, direction, -TAU / 4.);
-
-            transform.translation += new_translation;
-            transform.rotation = new_rotation;
+            new_rotation = Quat::from_rotation_y(-PI / 2.);
         }
 
         if keyboard_input.pressed(KeyCode::KeyD) {
             direction += Vec3::new(1., 0., 0.);
-            let (new_translation, new_rotation) =
-                calculate_transform(char.speed, &time, direction, TAU / 4.);
-
-            transform.translation += new_translation;
-            transform.rotation = new_rotation;
+            new_rotation = Quat::from_rotation_y(PI / 2.);
         }
 
         // Play walking animation on key pressed
@@ -85,12 +70,14 @@ pub fn handle_input(
         ]) {
             player.play(char.animations.0[0].clone_weak()).repeat();
         }
+
+        let new_translation = calculate_transform(char.speed, &time, direction);
+
+        transform.translation += new_translation;
+        transform.rotation = new_rotation;
     }
 }
 
-fn calculate_transform(speed: f32, time: &Res<Time>, direction: Vec3, angle: f32) -> (Vec3, Quat) {
-    let translation = direction * speed * time.delta_seconds();
-    let rotation = Quat::from_rotation_y(angle);
-
-    (translation, rotation)
+fn calculate_transform(speed: f32, time: &Res<Time>, direction: Vec3) -> Vec3 {
+    direction * speed * time.delta_seconds()
 }
